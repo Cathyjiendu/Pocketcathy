@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PocketCathy — Personal Finance</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ================= AUTH SCREEN ================= -->
+  <div id="auth-screen">
+
+    <div class="auth-card">
+
+      <div class="brand">
+        <div class="brand-icon">💰</div>
+        <h1>Pocket<span>Cathy</span></h1>
+        <p>Your money. Your goals. Your future.</p>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="login-tab">Sign In</button>
+        <button class="auth-tab" id="signup-tab">Create Account</button>
+      </div>
+
+      <!-- LOGIN -->
+      <form id="login-form">
+
+        <label>Email</label>
+        <input type="email" id="login-email" placeholder="you@example.com" required>
+
+        <label>Password</label>
+        <input type="password" id="login-password" placeholder="Enter your password" required>
+
+        <button class="primary-btn" type="submit">
+          Sign In
+        </button>
+
+        <p class="auth-switch">
+          Don't have an account?
+          <button type="button" id="go-signup">Create one</button>
+        </p>
+
+      </form>
+
+      <!-- SIGN UP -->
+      <form id="signup-form" class="hidden">
+
+        <label>Full Name</label>
+        <input type="text" id="signup-name" placeholder="Your full name" required>
+
+        <label>Email</label>
+        <input type="email" id="signup-email" placeholder="you@example.com" required>
+
+        <label>Password</label>
+        <input type="password" id="signup-password" placeholder="Minimum 6 characters" required>
+
+        <label>Confirm Password</label>
+        <input type="password" id="signup-confirm" placeholder="Repeat your password" required>
+
+        <button class="primary-btn" type="submit">
+          Create Account
+        </button>
+
+        <p class="auth-switch">
+          Already have an account?
+          <button type="button" id="go-login">Sign in</button>
+        </p>
+
+      </form>
+
+      <p id="auth-message"></p>
+
+    </div>
+  </div>
+
+
+  <!-- ================= MAIN APP ================= -->
+
+  <div id="app" class="hidden">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="sidebar-brand">
+        <div>💰</div>
+        <h2>Pocket<span>Cathy</span></h2>
+      </div>
+
+      <nav>
+
+        <button class="nav-item active" data-section="dashboard">
+          🏠 <span>Dashboard</span>
+        </button>
+
+        <button class="nav-item" data-section="transactions">
+          💳 <span>Transactions</span>
+        </button>
+
+        <button class="nav-item" data-section="income">
+          💵 <span>Income</span>
+        </button>
+
+        <button class="nav-item" data-section="expenses">
+          💸 <span>Expenses</span>
+        </button>
+
+        <button class="nav-item" data-section="savings">
+          🎯 <span>Savings Goals</span>
+        </button>
+
+        <button class="nav-item" data-section="profile">
+          👤 <span>My Profile</span>
+        </button>
+
+      </nav>
+
+      <div class="sidebar-bottom">
+
+        <button id="dark-mode">
+          🌙 <span>Dark Mode</span>
+        </button>
+
+        <button id="logout-btn">
+          🚪 <span>Logout</span>
+        </button>
+
+      </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- TOPBAR -->
+      <header class="topbar">
+
+        <div>
+          <h3 id="page-title">Dashboard</h3>
+          <p id="today-date"></p>
+        </div>
+
+        <div class="top-actions">
+
+          <button id="notification-btn" class="icon-btn">
+            🔔
+          </button>
+
+          <div class="user-mini">
+            <div class="avatar" id="mini-avatar">C</div>
+
+            <div>
+              <strong id="mini-name">Catherine</strong>
+              <small>Personal Account</small>
+            </div>
+          </div>
+
+        </div>
+
+      </header>
+
+
+      <!-- ================= DASHBOARD ================= -->
+
+      <section id="dashboard" class="page-section active">
+
+        <div class="welcome">
+
+          <div>
+            <p class="small-label">WELCOME BACK 👋🏽</p>
+
+            <h1>
+              Hello, <span id="welcome-name">Catherine</span>!
+            </h1>
+
+            <p>
+              Here's how your money is looking today.
+            </p>
+          </div>
+
+          <div class="welcome-icon">
+            💰
+          </div>
+
+        </div>
+
+
+        <!-- MONEY CARDS -->
+
+        <div class="money-grid">
+
+          <div class="money-card balance-card">
+            <div class="card-top">
+              <span>Total Balance</span>
+              <span>💳</span>
+            </div>
+
+            <h2 id="total-balance">₦0.00</h2>
+
+            <p>Available balance</p>
+          </div>
+
+
+          <div class="money-card">
+            <div class="card-top">
+              <span>Total Income</span>
+              <span>💵</span>
+            </div>
+
+            <h2 id="total-income">₦0.00</h2>
+
+            <p>This month</p>
+          </div>
+
+
+          <div class="money-card">
+            <div class="card-top">
+              <span>Total Expenses</span>
+              <span>💸</span>
+            </div>
+
+            <h2 id="total-expenses">₦0.00</h2>
+
+            <p>This month</p>
+          </div>
+
+        </div>
+
+
+        <!-- QUICK ACTIONS -->
+
+        <div class="section-heading">
+          <h2>Quick Actions</h2>
+        </div>
+
+        <div class="quick-actions">
+
+          <button id="add-income-btn" class="quick-card">
+            <span>💵</span>
+            <strong>Add Income</strong>
+            <small>Record money received</small>
+          </button>
+
+          <button id="add-expense-btn" class="quick-card">
+            <span>💸</span>
+            <strong>Add Expense</strong>
+            <small>Record money spent</small>
+          </button>
+
+          <button id="add-savings-btn" class="quick-card">
+            <span>🎯</span>
+            <strong>New Goal</strong>
+            <small>Create a savings goal</small>
+          </button>
+
+        </div>
+
+
+        <!-- LOWER GRID -->
+
+        <div class="dashboard-grid">
+
+          <div class="panel">
+
+            <div class="panel-heading">
+              <h2>Recent Transactions</h2>
+
+              <button class="text-btn" data-section="transactions">
+                View all
+              </button>
+            </div>
+
+            <div id="recent-transactions"></div>
+
+          </div>
+
+
+          <div class="panel">
+
+            <div class="panel-heading">
+              <h2>Savings Goals</h2>
+
+              <button class="text-btn" data-section="savings">
+                View all
+              </button>
+            </div>
+
+            <div id="dashboard-goals"></div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================= TRANSACTIONS ================= -->
+
+      <section id="transactions" class="page-section">
+
+        <div class="section-heading page-heading">
+          <div>
+            <h1>Transactions</h1>
+            <p>Keep track of every naira.</p>
+          </div>
+
+          <button class="primary-btn small-btn" id="add-transaction-btn">
+            + Add Transaction
+          </button>
+        </div>
+
+        <div class="filter-bar">
+
+          <input
+            type="search"
+            id="transaction-search"
+            placeholder="🔎 Search transactions..."
+          >
+
+          <select id="transaction-filter">
+            <option value="all">All Transactions</option>
+            <option value="income">Income</option>
+            <option value="expense">Expenses</option>
+          </select>
+
+        </div>
+
+        <div class="panel">
+
+          <div id="all-transactions"></div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================= INCOME ================= -->
+
+      <section id="income" class="page-section">
+
+        <div class="section-heading page-heading">
+
+          <div>
+            <h1>Income</h1>
+            <p>Money coming into your pocket.</p>
+          </div>
+
+          <button class="primary-btn small-btn" id="income-page-btn">
+            + Add Income
+          </button>
+
+        </div>
+
+        <div class="summary-banner income-banner">
+          <span>💵 Total Income</span>
+          <strong id="income-total-page">₦0.00</strong>
+        </div>
+
+        <div class="panel">
+          <div id="income-list"></div>
+        </div>
+
+      </section>
+
+
+      <!-- ================= EXPENSES ================= -->
+
+      <section id="expenses" class="page-section">
+
+        <div class="section-heading page-heading">
+
+          <div>
+            <h1>Expenses</h1>
+            <p>See where your money is going.</p>
+          </div>
+
+          <button class="primary-btn small-btn" id="expense-page-btn">
+            + Add Expense
+          </button>
+
+        </div>
+
+        <div class="summary-banner expense-banner">
+          <span>💸 Total Expenses</span>
+          <strong id="expense-total-page">₦0.00</strong>
+        </div>
+
+        <div class="panel">
+          <div id="expense-list"></div>
+        </div>
+
+      </section>
+
+
+      <!-- ================= SAVINGS ================= -->
+
+      <section id="savings" class="page-section">
+
+        <div class="section-heading page-heading">
+
+          <div>
+            <h1>Savings Goals</h1>
+            <p>Give your money something to work toward.</p>
+          </div>
+
+          <button class="primary-btn small-btn" id="goal-page-btn">
+            + New Goal
+          </button>
+
+        </div>
+
+        <div id="goals-grid" class="goals-grid"></div>
+
+      </section>
+
+
+      <!-- ================= PROFILE ================= -->
+
+      <section id="profile" class="page-section">
+
+        <div class="section-heading page-heading">
+
+          <div>
+            <h1>My Profile</h1>
+            <p>Manage your PocketCathy account.</p>
+          </div>
+
+        </div>
+
+        <div class="profile-card">
+
+          <div class="profile-avatar" id="profile-avatar">
+            C
+          </div>
+
+          <form id="profile-form">
+
+            <label>Full Name</label>
+            <input type="text" id="profile-name" required>
+
+            <label>Email</label>
+            <input type="email" id="profile-email" disabled>
+
+            <button class="primary-btn">
+              Save Changes
+            </button>
+
+          </form>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- ================= MODAL ================= -->
+
+  <div id="modal" class="modal hidden">
+
+    <div class="modal-card">
+
+      <button class="close-modal" id="close-modal">
+        ×
+      </button>
+
+      <div id="modal-content"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- TOAST -->
+
+  <div id="toast"></div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
